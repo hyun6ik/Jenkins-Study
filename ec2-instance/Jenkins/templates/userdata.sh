@@ -16,5 +16,5 @@ chmod +x /usr/local/bin/docker-compose
 cd /home/ec2-user
 git clone https://github.com/hyun6ik/Jenkins-Study.git
 chown -R ec2-user:ec2-user Jenkins-Study
-cd /home/ec2-user/Jenkins-Study/ec2-instance/jenkins/docker
+cd /home/ec2-user/Jenkins-Study/ec2-instance/Jenkins/docker
 make run
