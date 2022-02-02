@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:jdk11
 ARG DOCKER_GID=1000
 USER root
 
