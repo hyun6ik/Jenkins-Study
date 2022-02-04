@@ -9,7 +9,7 @@ module "ec2" {
   instance_type               = local.instance_type
   availability_zone           = element(local.azs, count.index % 2)
   subnet_id                   = element(local.public_subnet_ids, count.index % 2)
-  vpc_security_group_ids      = [local.default_sg_id]
+  vpc_security_group_ids      = [module.ssh.security_group_id, local.default_sg_id]
   iam_instance_profile        = module.iam.iam_instance_profile_name
   associate_public_ip_address = true
 
