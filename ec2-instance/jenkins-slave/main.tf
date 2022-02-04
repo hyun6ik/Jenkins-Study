@@ -16,6 +16,21 @@ module "ec2" {
   tags = merge(local.tags, { Name = local.slave_names[count.index] })
 }
 
+module "ssh" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 4.0"
+
+  name = local.ssh_sg_name
+  description = local.ssh_sg_description
+  vpc_id = local.vpc_id
+
+  ingress_cidr_blocks = local.ssh_ingress_cidr_blocks
+  ingress_rules = local.ssh_ingress_rules
+  egress_rules = local.ssh_egress_rules
+
+  tags = local.tags
+}
+
 # iam
 module "iam" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
