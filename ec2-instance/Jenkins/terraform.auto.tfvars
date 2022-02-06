@@ -20,4 +20,8 @@ ssh_ingress_rules = ["ssh-tcp"]
 ssh_egress_rules = ["all-all"]
 
 trusted_role_services = ["ec2.amazonaws.com"]
-custom_role_policy_arns = ["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"]
+custom_role_policy_arns = [
+//  "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+  "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess",
+  "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+]
