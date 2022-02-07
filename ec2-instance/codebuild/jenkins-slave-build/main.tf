@@ -35,6 +35,16 @@ module "s3_cache" {
   tags = merge(local.tags, { Name = local.bucket_cache_name })
 }
 
+module "s3_artifact" {
+  source = "terraform-aws-modules/s3-bucket/aws"
+
+  bucket        = local.bucket_artifact_name
+  acl           = "private"
+  force_destroy = false
+  versioning    = { enabled = false }
+
+  tags = merge(local.tags, { Name = local.bucket_artifact_name })
+}
 
 # codebuild
 resource "aws_codebuild_project" "this" {
@@ -43,8 +53,9 @@ resource "aws_codebuild_project" "this" {
   service_role  = module.iam.iam_role_arn
 
   cache {
-    type = "S3"
-    location = local.bucket_cache_name
+    type     = lookup(local.codebuild_cache, "type", null)
+    location = lookup(local.codebuild_cache, "location", null)
+    modes    = lookup(local.codebuild_cache, "modes", null)
   }
 
   source {
@@ -65,12 +76,16 @@ resource "aws_codebuild_project" "this" {
 
   vpc_config {
     vpc_id             = local.vpc_id
-    subnets            = local.public_subnet_ids
+    subnets            = local.private_subnet_ids
     security_group_ids = [local.default_sg_id]
   }
 
   artifacts {
-    type = "NO_ARTIFACTS"
+    type = "S3"
+    override_artifact_name = true
+    packaging = "ZIP"
+    location = local.bucket_artifact_name
+    namespace_type = "BUILD_ID"
   }
 
   tags = merge(local.tags, { Name = local.codebuild_name })
