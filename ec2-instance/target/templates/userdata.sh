@@ -1,7 +1,11 @@
 #!/bin/bash
 
 sudo yum update
-sudo yum install -y docker git java-1.8.0-openjdk ruby wget
+sudo yum install -y docker git java-11-amazon-corretto.x86_64 ruby wget
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install
 
 cd /home/ec2-user
 wget https://aws-codedeploy-ap-northeast-2.s3.amazonaws.com/latest/install
