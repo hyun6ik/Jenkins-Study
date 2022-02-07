@@ -11,7 +11,7 @@ ami_filters = [
   }
 ]
 
-instance_type = "t3.micro"
+instance_type = "m4.large"
 key_name = "dev"
 
 ssh_sg_description = "SSH Security group for Bastion EC2 instance"
@@ -23,5 +23,6 @@ trusted_role_services = ["ec2.amazonaws.com"]
 custom_role_policy_arns = [
 //  "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
   "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess",
-  "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+  "arn:aws:iam::aws:policy/AWSCodeDeployFullAccess"
 ]
